@@ -1,0 +1,8 @@
+Flag: flag{1b646e6c0eaf689e}
+
+Discovered triggers:
+1. ~~SECRET~~
+2. @@LEAK@@
+3. ||LEAK||
+4. ==LEAK==
+5. ++LEAK++
