@@ -156,6 +156,17 @@ mapping = {
 }
 ```
 
+### Getting the Flag
+After decrypting the ciphertext, the plaintext was submitted to the server:
+
+1. Connected to `06ff952ba10502bc.chal.ctf.ae:443` via SSL
+2. Received the ciphertext and prompt `pt = `
+3. Submitted the complete decrypted plaintext:
+   ```
+   however, if we do discover a complete theory, it should in time be understandable in broad principle by everyone, not just a few scientists. then we shall all, philosophers, scientists, and just ordinary people, be able to take part in the discussion of the question of why it is that we and the universe exist. if we find the answer to that, it would be the ultimate triumph of human reason  for then we would know the mind of god.
+   ```
+4. Server validated the plaintext and returned the flag
+
 ## Flag
 ```
 flag{c4433b38241638c7}
