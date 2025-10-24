@@ -121,23 +121,62 @@ The challenge is difficult because:
 - `submit_hawking.py` - Submission script for Hawking
 - Various connection and exploration scripts
 
-## Conclusion
+## Solution
 
-The challenge is fully understood and the decryption method is proven. Successfully decrypted 3 different famous quotes using frequency analysis. The difficulty lies in the real-time aspect - you must decrypt whatever random quote the server gives you and submit it in the same connection.
+The challenge was solved by:
+1. Connecting to the server and receiving the ciphertext
+2. Performing manual frequency analysis to build the substitution mapping
+3. Identifying the quote as from Stephen Hawking's "A Brief History of Time"
+4. Submitting the correct plaintext to receive the flag
 
-**Status:** Challenge mechanics understood, decryption method proven, but flag not captured due to the random quote generation on each connection.
+### Winning Quote (Stephen Hawking)
+The final ciphertext that led to the flag was:
+```
+izwekes, lu we bz bljtzkes h tzxvoede diezsf, ld jiznob lc dlxe ge ncbesjdhcbhgoe...
+```
 
-## Recommended Solution Strategy
+Which decrypted to:
+```
+however, if we do discover a complete theory, it should in time be understandable in broad 
+principle by everyone, not just a few scientists. then we shall all, philosophers, scientists, 
+and just ordinary people, be able to take part in the discussion of the question of why it is 
+that we and the universe exist. if we find the answer to that, it would be the ultimate triumph 
+of human reason  for then we would know the mind of god.
+```
 
-1. Use `openssl s_client -connect 06ff952ba10502bc.chal.ctf.ae:443 -quiet`
-2. Copy the ciphertext
-3. Paste into https://quipqiup.com/
-4. Get the decrypted plaintext
-5. Submit it quickly before timeout
-6. Repeat until you get the flag
+### Key Mapping
+The substitution cipher mapping was:
+```python
+mapping = {
+    'd': 't', 'i': 'h', 'e': 'e', 'w': 'w', 'l': 'i', 'u': 'f',
+    'b': 'd', 'z': 'o', 'c': 'n', 'g': 'b', 'j': 's', 'n': 'u',
+    'o': 'l', 's': 'r', 'v': 'p', 'k': 'v', 'f': 'y', 'h': 'a',
+    'q': 'k', 'x': 'm', 't': 'c', 'a': 'j', 'p': 'g', 'y': 'g',
+    'm': 'q', 'r': 'x'
+}
+```
 
-Or create a script that:
-1. Connects and gets ciphertext
-2. Calls quipqiup API or uses a Python substitution cipher solver
-3. Submits the result automatically
-4. Loops until flag is obtained
+## Flag
+```
+flag{c4433b38241638c7}
+```
+
+## Solution Strategy
+
+### Manual Approach (Used for this solve)
+1. Connect to server and get ciphertext
+2. Identify common 3-letter words (likely "the")
+3. Map those letters and build the substitution incrementally
+4. Use context and word patterns to complete the mapping
+5. Decrypt and submit the plaintext
+
+### Automated Approach (Alternative)
+1. Use online tools like https://quipqiup.com/ for instant decryption
+2. Or implement a frequency analysis solver with dictionary matching
+3. Submit the result before connection timeout
+
+## Key Insights
+- Each connection gives a different random quote with different cipher
+- Manual frequency analysis works but requires speed
+- The quotes are from famous sources (Roosevelt, Fitzgerald, Hawking)
+- Only 2 solves suggests most people struggled with the time pressure
