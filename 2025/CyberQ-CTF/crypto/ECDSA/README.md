@@ -1,56 +1,150 @@
-# ECDSA Challenge - Way Forward
+# ECDSA Challenge - Complete Writeup
 
-## Current Status
-After extensive testing, we haven't found the vulnerability. Here's the way forward:
+## Challenge Information
+- **Name**: ECDSA
+- **Category**: Cryptography
+- **Difficulty**: Easy
+- **Points**: 495
+- **Solves**: 1 (now 2!)
+- **Flag**: `flag{02ba8e011053e923}`
 
-## Next Steps to Try:
+## Challenge Description
+> Welcome to my new DS system. You need to sign 'give_me_flag' to get the flag. I may have missed some calculations while implementing the system.
 
-### 1. **Check Challenge Instance**
-- The instance shows "Expires in 116 minutes" from the original description
-- We may need to extend or restart the instance
-- Verify the instance is still active
+## The Vulnerability
 
-### 2. **Review Challenge Files**
-- Check if there are any downloadable files or source code
-- Look for hints in the challenge description or forum
-- Check if there's a `public.zip` or similar file
+The hint "I may have missed some calculations" refers to a critical step in ECDSA: **hashing the message**.
 
-### 3. **Alternative Approaches**
+### Correct ECDSA Implementation
+In proper ECDSA, the message is hashed before signing:
+```python
+e = SHA256(message)
+z = int(e) mod n
+# Sign z
+```
 
-#### A. Lattice Attack
-If there's partial nonce leakage or biased nonces, we could use lattice attacks
+### Buggy Implementation
+The server skips the hashing step:
+```python
+z = int.from_bytes(message, 'big') mod n
+# Sign z directly
+```
 
-#### B. Fault Injection
-If the server has timing or fault vulnerabilities
+This means the server signs the **integer value of the raw message bytes** instead of the hash.
 
-#### C. Side Channel
-Check for timing attacks or other side channels
+## The Exploit
 
-#### D. Implementation-Specific Bugs
-- Python's `pow()` function edge cases
-- Integer overflow/underflow
-- Specific library bugs (e.g., old ecdsa library versions)
+### The Problem
+- We need a valid signature for `b'give_me_flag'`
+- The server blocks signing `b'give_me_flag'` directly (returns "Not allowed")
+- We need to find a different message that produces the same signature
 
-### 4. **Re-examine "Missed Calculations"**
+### The Solution: Modular Arithmetic
 
-Possibilities we haven't fully explored:
-- **Forgot to reduce k mod n** in signing (k could be > n)
-- **Forgot to check if R is the point at infinity**
-- **Used addition instead of subtraction** somewhere (or vice versa)
-- **Forgot to negate y-coordinate** in some calculation
-- **Used wrong curve parameters** (mixed up p and n)
-- **Forgot to validate public key** is on the curve
+Since the server uses `int(message) mod n`, we can exploit modular arithmetic:
 
-### 5. **Try Getting Source Code**
-If we can see the actual implementation, we can identify the exact bug
+If `int(m1) ≡ int(m2) (mod n)`, then they produce the same signature!
 
-## Recommended Action
-1. Check if challenge instance is still active
-2. Look for downloadable challenge files
-3. Try a few more edge cases based on common Python/crypto library bugs
-4. If still stuck, seek hints or check writeups from similar challenges
+### Step-by-Step Exploit
 
-## Files to Create Next
-- `check_instance.py` - Verify instance is responsive
-- `edge_cases.py` - Test Python-specific edge cases
-- `library_bugs.py` - Test known bugs in crypto libraries
+1. **Calculate target integer**:
+   ```python
+   target_msg = b'give_me_flag'
+   z_target = int.from_bytes(target_msg, 'big')
+   # z_target = 32004452331900471871275819367
+   ```
+
+2. **Create malicious message**:
+   ```python
+   n = 115792089210356248762697446949407573529996955224135760342422259061068512044369
+   z_malicious = z_target + n
+   m_malicious = z_malicious.to_bytes((z_malicious.bit_length() + 7) // 8, 'big')
+   ```
+
+3. **Verify equivalence**:
+   ```python
+   int(m_malicious) mod n == int(target_msg) mod n  # True!
+   ```
+
+4. **Get signature**:
+   - Sign `m_malicious` (server allows this since it doesn't match the blacklist)
+   - Server computes: `z = int(m_malicious) mod n = z_target`
+   - Server returns signature `(r, s)` for `z_target`
+
+5. **Get flag**:
+   - Verify signature `(r, s)` with message `b'give_me_flag'`
+   - Server computes: `z = int(b'give_me_flag') mod n = z_target`
+   - Signature validates!
+   - Server returns the flag
+
+## Key Insights
+
+### Why This Works
+- `m_malicious = z_target + n` is a different byte string than `b'give_me_flag'`
+- But `(z_target + n) mod n = z_target mod n`
+- So they produce identical signatures under the buggy implementation
+
+### Why Previous Attempts Failed
+- Tested 30+ standard ECDSA vulnerabilities
+- All assumed the server was hashing the message
+- The bug was in a **missing** operation, not a **wrong** operation
+- Needed to understand the server was using raw message bytes
+
+## Solution Code
+
+```python
+from pwn import *
+
+HOST = "f54db85cf3bba421.chal.ctf.ae"
+n = 115792089210356248762697446949407573529996955224135760342422259061068512044369
+
+conn = remote(host=HOST, port=443, ssl=True)
+conn.recvuntil(b'pub = ')
+conn.recvline()
+
+# Create malicious message
+target_msg = b'give_me_flag'
+z_target = int.from_bytes(target_msg, 'big')
+z_malicious = z_target + n
+m_malicious = z_malicious.to_bytes((z_malicious.bit_length() + 7) // 8, 'big')
+
+# Sign malicious message
+conn.recvuntil(b'Enter option (1 or 2): ')
+conn.sendline(b'1')
+conn.recvuntil(b'Enter your message (raw bytes allowed): ')
+conn.sendline(m_malicious)
+
+data = conn.recvuntil(b'=================================')
+sig_line = data.decode()
+parts = sig_line.split('r = 0x')[1].split(', s = 0x')
+r = int(parts[0], 16)
+s = int(parts[1].split('\n')[0], 16)
+
+# Verify with target message
+conn.recvuntil(b'Enter option (1 or 2): ')
+conn.sendline(b'2')
+conn.recvuntil(b'Enter r: ')
+conn.sendline(str(r).encode())
+conn.recvuntil(b'Enter s: ')
+conn.sendline(str(s).encode())
+conn.recvuntil(b'Enter message: ')
+conn.sendline(target_msg)
+
+result = conn.recvall(timeout=2).decode()
+print(result)  # flag{02ba8e011053e923}
+```
+
+## Lessons Learned
+
+1. **"Missed calculations" often means missing operations**, not wrong ones
+2. **Hashing is critical in ECDSA** - without it, modular arithmetic attacks are trivial
+3. **Modular equivalence** can bypass blacklist checks
+4. **Read the server output carefully** - the curve parameters were provided
+5. **Simple bugs can be hard to find** when you're looking for complex vulnerabilities
+
+## Timeline
+- Tested 30+ different ECDSA vulnerabilities
+- Researched similar CTF challenges
+- Finally understood the hint with guidance
+- Implemented modular arithmetic solution
+- **Flag captured**: `flag{02ba8e011053e923}`

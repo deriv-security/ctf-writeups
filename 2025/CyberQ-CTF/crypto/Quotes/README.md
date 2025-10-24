@@ -1,103 +1,143 @@
-# Quotes Challenge
+# Quotes Challenge - Complete Writeup
 
-**Category:** Cryptography  
-**Difficulty:** Easy  
-**Points:** 490  
-**Solves:** 2
+## Challenge Information
+- **Name:** Quotes
+- **Category:** Cryptography
+- **Difficulty:** Easy
+- **Points:** 490
+- **Solves:** 2
+- **Instance:** 06ff952ba10502bc.chal.ctf.ae:443
 
 ## Challenge Description
+"Can you guess my quote?"
 
-Can you guess my quote?
+## Analysis
 
-## Challenge Analysis
+The challenge implements a simple monoalphabetic substitution cipher where:
+1. A random quote is selected from a hidden list (`secr3ts.quotes`)
+2. A random substitution cipher is applied (each letter maps to another letter)
+3. The ciphertext is displayed
+4. You must submit the exact original plaintext to get the flag
 
-The challenge implements a simple substitution cipher:
+### Key Challenge Mechanic
+**Each connection generates a DIFFERENT random quote with a DIFFERENT random cipher.**
 
-1. A random quote is selected from a list (stored in `secr3ts.quotes`)
-2. The quote is converted to lowercase
-3. A random substitution cipher is applied (each letter maps to another letter)
-4. The ciphertext is displayed
-5. We need to guess the original plaintext to get the flag
+This means:
+- You cannot reuse previous solutions
+- You must decrypt each ciphertext independently in real-time
+- The server doesn't keep the same quote between connections
 
-### Key Observations
+## Solution Approach
 
-- **Substitution Cipher**: Each letter in the alphabet is randomly mapped to another letter
-- **Random Quote**: The plaintext is selected from a predefined list of quotes
-- **Case Insensitive**: Everything is converted to lowercase
-- **Non-alphabetic characters**: Preserved as-is (spaces, punctuation)
+### Successfully Decrypted Quotes
 
-## Solution Strategy
+#### 1. Theodore Roosevelt - "Man in the Arena"
+**Ciphertext:**
+```
+le ly pte emn valelv rmt vtkpey; pte emn bcp rmt jtlpey tke mtr emn yeatpd bcp yekbfqny...
+```
 
-Since we don't have access to the `secr3ts.quotes` list, we have several approaches:
+**Plaintext:**
+```
+it is not the critic who counts; not the man who points out how the strong man stumbles, 
+or where the doer of deeds could have done them better. the credit belongs to the man who 
+is actually in the arena, whose face is marred by dust and sweat and blood; who strives 
+valiantly; who errs, who comes short again and again, because there is no effort without 
+error and shortcoming; but who does actually strive to do the deeds; who knows great 
+enthusiasms, the great devotions; who spends himself in a worthy cause; who at the best 
+knows in the end the triumph of high achievement, and who at the worst, if he fails, at 
+least fails while daring greatly, so that his place shall never be with those cold and 
+timid souls who neither know victory nor defeat
+```
 
-### Approach 1: Frequency Analysis
-- Analyze letter frequencies in the ciphertext
-- Compare with English letter frequencies
-- Use word patterns to identify common words
-- Build a mapping and decrypt
+#### 2. F. Scott Fitzgerald - "The Great Gatsby"
+**Ciphertext:**
+```
+mnjkyc yutduxup da jru msuua tdmrj, jru bsmnkjdo ghjhsu jrnj cuns yc cuns suoupuk yugbsu hk...
+```
 
-### Approach 2: Brute Force Common Quotes
-- Try a large list of famous quotes
-- Match by length and pattern
-- This works if the quote is well-known
+**Plaintext:**
+```
+gatsby believed in the green light, the orgastic future that year by year recedes before us. 
+it eluded us then, but that's no matter  tomorrow we will run faster, stretch out our arms 
+farther. . . . and one fine morning   so we beat on, boats against the current, borne back 
+ceaselessly into the past.
+```
 
-### Approach 3: Automated Cryptanalysis
-- Use tools like `quipqiup` or similar
-- Let automated solvers break the substitution cipher
-- Verify the result makes sense
+#### 3. Stephen Hawking - "A Brief History of Time"
+**Ciphertext:**
+```
+izwekes, lu we bz bljtzkes h tzxvoede diezsf, ld jiznob lc dlxe ge ncbesjdhcbhgoe...
+```
 
-### Approach 4: Multiple Attempts
-- Since we can connect multiple times, we can:
-  - Collect multiple ciphertexts
-  - Use frequency analysis across all samples
-  - Build a better understanding of the quote list
+**Plaintext:**
+```
+however, if we do discover a complete theory, it should in time be understandable in broad 
+principle by everyone, not just a few scientists. then we shall all, philosophers, scientists, 
+and just ordinary people, be able to take part in the discussion of the question of why it is 
+that we and the universe exist. if we find the answer to that, it would be the ultimate triumph 
+of human reason  for then we would know the mind of god.
+```
 
-## Files
+## Decryption Method
 
-- `challenge.py` - The challenge source code
-- `connect.py` - Script to connect to the challenge instance
-- `solve.py` - Automated solver with multiple strategies
-- `README.md` - This file
+### Manual Frequency Analysis
+1. Identify the most common 3-letter word (usually "the")
+2. Map those letters: most_common_3_letter → "the"
+3. Identify common 2-letter words (of, to, in, it, is, be, etc.)
+4. Build the substitution mapping incrementally
+5. Decrypt and verify it makes sense
 
-## Usage
+### Automated Approach
+Use online tools like:
+- https://quipqiup.com/ (best automated solver)
+- https://www.dcode.fr/monoalphabetic-substitution
 
-### When Instance is Deployed
+## The Problem
 
-1. Update the HOST and PORT in `solve.py`:
-   ```python
-   HOST = "your-instance-host"
-   PORT = your-instance-port
-   ```
+To get the flag, you need to:
+1. Connect to the server
+2. Receive the random ciphertext
+3. Decrypt it in real-time (using quipqiup or manual analysis)
+4. Submit the plaintext before the connection times out
+5. Hope you get it right on the first try
 
-2. Run the solver:
-   ```bash
-   python3 solve.py REMOTE
-   ```
+The challenge is difficult because:
+- Each attempt gives a different quote
+- You need fast decryption (manual or automated)
+- The quotes are long (200-700 characters)
+- Only 2 people have solved it
 
-### Manual Analysis
+## Files Created
 
-1. Connect to get a ciphertext:
-   ```bash
-   python3 connect.py REMOTE HOST=<host> PORT=<port>
-   ```
+- `ciphertext.txt` - Roosevelt quote (encrypted)
+- `ciphertext2.txt` - Unknown quote sample
+- `ciphertext3.txt` - Gatsby quote (encrypted)
+- `manual_decrypt.py` - Manual decryption of Roosevelt quote
+- `decrypt3.py` - Manual decryption of Gatsby quote
+- `final_solve.py` - Manual decryption of Hawking quote
+- `auto_solve.py` - Attempted automated solver
+- `submit_gatsby.py` - Submission script for Gatsby
+- `submit_hawking.py` - Submission script for Hawking
+- Various connection and exploration scripts
 
-2. Use online tools like:
-   - https://quipqiup.com/ (automated substitution cipher solver)
-   - https://www.dcode.fr/monoalphabetic-substitution
+## Conclusion
 
-3. Submit the decrypted plaintext
+The challenge is fully understood and the decryption method is proven. Successfully decrypted 3 different famous quotes using frequency analysis. The difficulty lies in the real-time aspect - you must decrypt whatever random quote the server gives you and submit it in the same connection.
 
-## Notes
+**Status:** Challenge mechanics understood, decryption method proven, but flag not captured due to the random quote generation on each connection.
 
-- The challenge has only 2 solves, suggesting it might be trickier than expected
-- The quote list is hidden in `secr3ts.quotes`, so we can't just enumerate
-- Multiple connection attempts may be needed
-- Pattern matching and frequency analysis are key
+## Recommended Solution Strategy
 
-## Next Steps
+1. Use `openssl s_client -connect 06ff952ba10502bc.chal.ctf.ae:443 -quiet`
+2. Copy the ciphertext
+3. Paste into https://quipqiup.com/
+4. Get the decrypted plaintext
+5. Submit it quickly before timeout
+6. Repeat until you get the flag
 
-1. Deploy the challenge instance
-2. Collect sample ciphertexts
-3. Analyze patterns and frequencies
-4. Build or use automated solver
-5. Submit solution
+Or create a script that:
+1. Connects and gets ciphertext
+2. Calls quipqiup API or uses a Python substitution cipher solver
+3. Submits the result automatically
+4. Loops until flag is obtained
