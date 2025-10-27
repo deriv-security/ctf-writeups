@@ -1,6 +1,6 @@
 # Dubai Police CTF 2025
 
-![Dubai Police CTF](https://dp.ctf.ae/)
+![Dubai Police CTF](https://dp.ctf.ae/logos/DPCTF%20LOGO/DP-CTF-logo.svg)
 
 ## Competition Overview
 
