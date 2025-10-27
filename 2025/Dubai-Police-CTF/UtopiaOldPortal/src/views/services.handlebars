@@ -1,0 +1,110 @@
+<div class="hero">
+    <h1>Government Services</h1>
+    <p>Access all city services online with our comprehensive digital platform.</p>
+</div>
+
+<section class="services-grid">
+    <h2>Available Services</h2>
+    {{#if services}}
+    <div class="cards">
+        {{#each services}}
+        <div class="card">
+            <h3>{{this.name}}</h3>
+            <p>{{this.description}}</p>
+            <a href="#" class="btn btn-secondary">Access Service</a>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+</section>
+
+<section class="additional-services">
+    <h2>Additional Resources</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Emergency Services</h3>
+            <p>Access emergency contact information and report non-emergency incidents to city departments.</p>
+            <div style="margin-top: 1rem;">
+                <strong>Emergency: 911</strong><br>
+                <strong>Non-Emergency: (555) 123-0000</strong>
+            </div>
+        </div>
+        <div class="card">
+            <h3>City Planning</h3>
+            <p>View zoning maps, development plans, and participate in community planning initiatives.</p>
+            <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">View Plans</a>
+        </div>
+        <div class="card">
+            <h3>Transportation</h3>
+            <p>Access public transit schedules, parking information, and transportation services.</p>
+            <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Transit Info</a>
+        </div>
+        <div class="card">
+            <h3>Waste Management</h3>
+            <p>Schedule bulk pickup, access recycling information, and report waste management issues.</p>
+            <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Waste Services</a>
+        </div>
+        <div class="card">
+            <h3>Utilities</h3>
+            <p>Manage water, sewer, and utility services. Report outages and access billing information.</p>
+            <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Utility Portal</a>
+        </div>
+        <div class="card">
+            <h3>Court Services</h3>
+            <p>Access municipal court information, pay fines, and schedule court appearances online.</p>
+            <a href="#" class="btn btn-secondary" style="margin-top: 1rem;">Court Portal</a>
+        </div>
+    </div>
+</section>
+
+<section class="service-hours">
+    <h2>Service Hours & Information</h2>
+    <div style="background: var(--gray-100); border: 2px solid var(--primary-black); padding: 2rem; margin: 2rem 0;">
+        <div class="cards">
+            <div class="card">
+                <h3>City Hall</h3>
+                <p>
+                    <strong>Address:</strong> 1234 Government Plaza<br>
+                    <strong>Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM<br>
+                    <strong>Phone:</strong> (555) 123-CITY<br>
+                    <strong>Email:</strong> info@utopia.gov
+                </p>
+            </div>
+            <div class="card">
+                <h3>Public Works</h3>
+                <p>
+                    <strong>Address:</strong> 5678 Industrial Blvd<br>
+                    <strong>Hours:</strong> Monday - Friday, 7:00 AM - 3:30 PM<br>
+                    <strong>Emergency:</strong> 24/7 Emergency Hotline<br>
+                    <strong>Phone:</strong> (555) 123-WORK
+                </p>
+            </div>
+            <div class="card">
+                <h3>Health Department</h3>
+                <p>
+                    <strong>Address:</strong> 9012 Health Plaza<br>
+                    <strong>Hours:</strong> Monday - Friday, 8:30 AM - 4:30 PM<br>
+                    <strong>Saturday:</strong> 9:00 AM - 1:00 PM<br>
+                    <strong>Phone:</strong> (555) 123-HLTH
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="online-services">
+    <h2>Online Service Portal</h2>
+    <p>Most services can be accessed 24/7 through our online portal. Create an account to:</p>
+    <ul style="list-style: none; padding: 1rem 0;">
+        <li>Apply for permits and licenses</li>
+        <li>Pay bills and taxes</li>
+        <li>Submit service requests</li>
+        <li>Track application status</li>
+        <li>Access digital documents</li>
+        <li>Schedule appointments</li>
+    </ul>
+    <div style="text-align: center; margin: 2rem 0;">
+        <a href="#" class="btn">Create Account</a>
+        <a href="#" class="btn btn-secondary" style="margin-left: 1rem;">Portal Login</a>
+    </div>
+</section>

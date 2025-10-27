@@ -1,0 +1,167 @@
+<div class="hero">
+    <h1>Contact City Government</h1>
+    <p>Get in touch with your local government representatives and departments.</p>
+</div>
+
+<section class="contact-form-section">
+    <h2>Send Us a Message</h2>
+    <p>Use the form below to contact the appropriate city department. We respond to all inquiries within 24 hours during
+        business days.</p>
+
+    <form id="contactForm" class="form">
+        <div class="form-group">
+            <label for="name" class="form-label">Full Name *</label>
+            <input type="text" id="name" name="name" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="department" class="form-label">Department</label>
+            <select id="department" name="department" class="form-select">
+                <option value="general">General Inquiry</option>
+                <option value="mayor">Mayor's Office</option>
+                <option value="public-works">Public Works</option>
+                <option value="health">Health Department</option>
+                <option value="police">Police Department</option>
+                <option value="fire">Fire Department</option>
+                <option value="planning">City Planning</option>
+                <option value="finance">Finance Department</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="priority" class="form-label">Priority Level</label>
+            <select id="priority" name="priority" class="form-select">
+                <option value="low">Low</option>
+                <option value="normal" selected>Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="message" class="form-label">Message *</label>
+            <textarea id="message" name="message" class="form-textarea" rows="6" required
+                placeholder="Please describe your inquiry, concern, or feedback in detail..."></textarea>
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+            <button type="submit" class="btn">Submit Message</button>
+            <button type="reset" class="btn btn-secondary" style="margin-left: 1rem;">Clear Form</button>
+        </div>
+    </form>
+</section>
+
+{{#if officials}}
+<section class="contact-directory">
+    <h2>Government Directory</h2>
+    <p>Direct contact information for city officials and departments:</p>
+
+    <div class="table-container" style="overflow-x: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each officials}}
+                <tr>
+                    <td><strong>{{this.name}}</strong></td>
+                    <td>{{this.position}}</td>
+                    <td>{{this.department}}</td>
+                    <td>{{this.phone}}</td>
+                    <td><a href="mailto:{{this.email}}">{{this.email}}</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+{{/if}}
+
+<section class="emergency-contacts">
+    <h2>Emergency & Important Contacts</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Emergency Services</h3>
+            <p>
+                <strong>Emergency:</strong> 911<br>
+                <strong>Police Non-Emergency:</strong> (555) 123-0000<br>
+                <strong>Fire Non-Emergency:</strong> (555) 123-0001<br>
+                <strong>Medical Emergency:</strong> 911
+            </p>
+        </div>
+        <div class="card">
+            <h3>City Hall</h3>
+            <p>
+                <strong>Main Number:</strong> (555) 123-CITY<br>
+                <strong>Address:</strong> 1234 Government Plaza<br>
+                <strong>Hours:</strong> Mon-Fri 8AM-5PM<br>
+                <strong>Saturday:</strong> 9AM-1PM
+            </p>
+        </div>
+        <div class="card">
+            <h3>Public Works Emergency</h3>
+            <p>
+                <strong>Water Emergency:</strong> (555) 123-H2O<br>
+                <strong>Power Outage:</strong> (555) 123-POWER<br>
+                <strong>Road Emergency:</strong> (555) 123-ROAD<br>
+                <strong>24/7 Hotline:</strong> (555) 123-HELP
+            </p>
+        </div>
+        <div class="card">
+            <h3>Health Department</h3>
+            <p>
+                <strong>General Health:</strong> (555) 123-HLTH<br>
+                <strong>Environmental Health:</strong> (555) 123-ENV<br>
+                <strong>Public Health Emergency:</strong> (555) 123-EMRG<br>
+                <strong>Hours:</strong> Mon-Fri 8:30AM-4:30PM
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="location-map">
+    <h2>Visit Us</h2>
+    <div
+        style="background: var(--gray-100); border: 2px solid var(--primary-black); padding: 2rem; text-align: center;">
+        <h3>Utopia City Hall</h3>
+        <p>1234 Government Plaza<br>
+            Utopia City, UC 12345</p>
+
+        <div
+            style="margin: 2rem 0; padding: 2rem; background: var(--checkered-pattern); border: 1px solid var(--gray-400);">
+            <p><strong>Interactive Map Coming Soon</strong></p>
+            <p>Detailed directions and parking information will be available in our upcoming map feature.</p>
+        </div>
+
+        <div class="cards" style="margin-top: 2rem;">
+            <div class="card">
+                <h4>Parking</h4>
+                <p>Free public parking available in the Government Plaza parking garage. Enter from Main Street.</p>
+            </div>
+            <div class="card">
+                <h4>Public Transit</h4>
+                <p>Bus routes 5, 12, and 18 stop directly at City Hall. Metro station is 2 blocks away.</p>
+            </div>
+            <div class="card">
+                <h4>Accessibility</h4>
+                <p>Full ADA compliance with wheelchair access, elevators, and assistance available upon request.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="margin: 2rem 0; padding: 1rem; background: var(--gray-100); border-left: 4px solid var(--primary-black);">
+    <p><strong>Pro Tip:</strong> For faster service, please include as much detail as possible in your message. This
+        helps us route your inquiry to the right department and respond more effectively.</p>
+</div>

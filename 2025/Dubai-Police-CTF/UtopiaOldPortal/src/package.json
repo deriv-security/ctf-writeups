@@ -1,0 +1,31 @@
+{
+  "name": "utopia-government-portal",
+  "version": "1.0.0",
+  "description": "Utopia City Government Official Portal - CTF Challenge",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ctf",
+    "prototype-pollution",
+    "rce",
+    "government"
+  ],
+  "author": "CTFae",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.18.2",
+    "lodash": "4.17.15",
+    "express-handlebars": "^7.1.2",
+    "cookie-parser": "^1.4.6",
+    "body-parser": "^1.20.2",
+    "child_process": "^1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

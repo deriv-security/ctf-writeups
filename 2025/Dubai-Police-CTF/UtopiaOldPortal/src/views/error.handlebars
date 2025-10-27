@@ -1,0 +1,62 @@
+<div class="hero">
+    <h1>{{error}}</h1>
+    <p>{{message}}</p>
+</div>
+
+<section class="error-details">
+    <div style="text-align: center; padding: 3rem 0;">
+        <div style="font-size: 6rem; margin-bottom: 2rem;">■□</div>
+        <h2>Oops! Something went wrong</h2>
+        <p>We apologize for the inconvenience. The page you requested could not be found or accessed.</p>
+
+        <div style="margin: 2rem 0;">
+            <a href="/" class="btn">Return Home</a>
+            <a href="/contact" class="btn btn-secondary" style="margin-left: 1rem;">Contact Support</a>
+        </div>
+    </div>
+</section>
+
+<section class="helpful-links">
+    <h2>What can you do?</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Search Our Site</h3>
+            <p>Use our search function to find the information or service you were looking for.</p>
+        </div>
+        <div class="card">
+            <h3>Browse Services</h3>
+            <p>Explore our comprehensive list of government services and resources.</p>
+            <a href="/services" class="btn btn-secondary" style="margin-top: 1rem;">View Services</a>
+        </div>
+        <div class="card">
+            <h3>Contact Us</h3>
+            <p>Get in touch with the appropriate government department for assistance.</p>
+            <a href="/contact" class="btn btn-secondary" style="margin-top: 1rem;">Contact Form</a>
+        </div>
+    </div>
+</section>
+
+<section class="error-report">
+    <h2>Report This Error</h2>
+    <div style="background: var(--gray-100); border: 2px solid var(--primary-black); padding: 2rem; margin: 2rem 0;">
+        <p>If you believe this is a technical error, please report it to our IT department:</p>
+        <ul style="list-style: none; padding: 1rem 0;">
+            <li><strong>Email:</strong> tech-support@utopia.gov</li>
+            <li><strong>Phone:</strong> (555) 123-TECH</li>
+            <li><strong>Hours:</strong> Monday - Friday, 8:00 AM - 5:00 PM</li>
+        </ul>
+        <p><strong>Error Details:</strong></p>
+        <div
+            style="background: var(--primary-black); color: var(--primary-white); padding: 1rem; font-family: monospace; margin-top: 1rem;">
+            Error: {{error}}<br>
+            Message: {{message}}<br>
+            Timestamp: <span id="errorTimestamp"></span><br>
+            URL: <span id="errorUrl"></span>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('errorTimestamp').textContent = new Date().toISOString();
+    document.getElementById('errorUrl').textContent = window.location.href;
+</script>

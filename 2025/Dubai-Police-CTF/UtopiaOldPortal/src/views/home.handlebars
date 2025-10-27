@@ -1,0 +1,85 @@
+<div class="hero">
+    <h1>Welcome to Utopia City Government</h1>
+    <p>Your trusted partner in building a better community through transparent governance, efficient services, and
+        citizen engagement.</p>
+</div>
+
+<section class="intro">
+    <h2>Serving Our Citizens</h2>
+    <p>The Utopia City Government is committed to providing excellent public services and maintaining the highest
+        standards of governance. Our administration works tirelessly to ensure the prosperity, safety, and well-being of
+        all residents.</p>
+</section>
+
+<section class="services-preview">
+    <h2>Our Services</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Business Services</h3>
+            <p>Apply for business licenses, permits, and registrations online. Our streamlined process makes it easy to
+                start and operate your business in Utopia City.</p>
+        </div>
+        <div class="card">
+            <h3>Building & Construction</h3>
+            <p>Submit building permits, zoning applications, and construction plans. Our building department ensures
+                safe and compliant construction throughout the city.</p>
+        </div>
+        <div class="card">
+            <h3>Tax Services</h3>
+            <p>File property taxes, business taxes, and other municipal fees online. Access your tax records and payment
+                history 24/7 through our secure portal.</p>
+        </div>
+        <div class="card">
+            <h3>Public Records</h3>
+            <p>Access public documents, meeting minutes, ordinances, and government transparency reports. Open
+                government is our commitment to you.</p>
+        </div>
+    </div>
+</section>
+
+{{#if officials}}
+<section class="officials">
+    <h2>City Leadership</h2>
+    <div class="cards">
+        {{#each officials}}
+        <div class="card">
+            <h3>{{this.name}}</h3>
+            <p><strong>{{this.position}}</strong><br>
+                {{this.department}}<br>
+                {{this.phone}}<br>
+                {{this.email}}</p>
+        </div>
+        {{/each}}
+    </div>
+</section>
+{{/if}}
+
+<section class="news-updates">
+    <h2>Recent Updates</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>New Online Portal Launch</h3>
+            <p>We're excited to announce the launch of our new government portal, making it easier than ever to access
+                city services and information.</p>
+            <small>Posted: October 15, 2024</small>
+        </div>
+        <div class="card">
+            <h3>Infrastructure Improvements</h3>
+            <p>Major roadwork and utility upgrades are planned for downtown Utopia. View the construction schedule and
+                plan your routes accordingly.</p>
+            <small>Posted: October 10, 2024</small>
+        </div>
+        <div class="card">
+            <h3>City Council Meeting</h3>
+            <p>Join us for the monthly city council meeting this Thursday at 7 PM. Public comments and participation are
+                encouraged.</p>
+            <small>Posted: October 8, 2024</small>
+        </div>
+    </div>
+</section>
+
+<section class="contact-cta checkered-pattern" style="padding: 2rem; margin: 2rem 0; text-align: center;">
+    <h2>Get in Touch</h2>
+    <p>Have questions or need assistance? Our government representatives are here to help.</p>
+    <a href="/contact" class="btn" style="margin-top: 1rem;">Contact Us</a>
+</section>
