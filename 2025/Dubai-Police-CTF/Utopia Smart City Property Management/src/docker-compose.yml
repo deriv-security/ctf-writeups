@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    image: utopia:web
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: ctf_user
+      DB_PASS: ctf_password
+      DB_NAME: smartcity
+      FLAG: "CTF{sql_injection_time_based_99}"
+    ports:
+      - 80
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:80/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  db:
+    image: mariadb:11.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ctf_root_password
+      MYSQL_DATABASE: smartcity
+      MYSQL_USER: ctf_user
+      MYSQL_PASSWORD: ctf_password
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 --silent" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
