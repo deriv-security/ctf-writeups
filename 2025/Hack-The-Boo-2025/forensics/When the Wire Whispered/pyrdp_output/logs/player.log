@@ -1,0 +1,12 @@
+[2025-10-26 20:16:09,182] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:16:09,182] - ERROR - pyrdp - Headless mode is not specified and PySide6 is not installed. Install PySide6 to use the graphical user interface.
+[2025-10-26 20:17:03,727] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:17:05,212] - INFO - pyrdp.player - Listening for connections on 127.0.0.1:3000
+[2025-10-26 20:17:25,026] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:17:25,158] - INFO - pyrdp.player - Listening for connections on 127.0.0.1:3000
+[2025-10-26 20:19:28,177] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:19:28,310] - INFO - pyrdp.player - Listening for connections on 127.0.0.1:3000
+[2025-10-26 20:20:05,257] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:20:05,399] - INFO - pyrdp.player - Listening for connections on 127.0.0.1:3000
+[2025-10-26 20:20:13,246] - WARNING - pyrdp - Notifications are not supported on this platform.
+[2025-10-26 20:20:13,383] - INFO - pyrdp.player - Listening for connections on 127.0.0.1:3000

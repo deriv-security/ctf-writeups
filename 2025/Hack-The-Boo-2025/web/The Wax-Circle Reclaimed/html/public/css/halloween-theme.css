@@ -1,0 +1,440 @@
+/* Halloween Theme Core Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    /* Halloween Background: Deep purple-black with orange undertones */
+    background: linear-gradient(135deg, 
+        #1a0a1f 0%,      /* Deep purple-black */
+        #0d0a0f 25%,     /* Very dark purple */
+        #1f0f0a 50%,     /* Dark orange-black */
+        #0f0a1a 75%,     /* Dark purple-blue */
+        #1a0a1f 100%     /* Deep purple-black */
+    );
+    background-attachment: fixed;
+    color: #e8dcc0;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Additional Halloween background texture overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 10% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 80%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Creepster', cursive;
+    letter-spacing: 2px;
+}
+
+/* Spooky headings */
+.spooky-title {
+    font-family: 'Nosifer', cursive;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+/* Mystical Card */
+.mystical-card {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(26, 13, 26, 0.95) 0%,    /* Deep purple */
+        rgba(20, 10, 15, 0.95) 50%,   /* Purple-brown */
+        rgba(13, 13, 26, 0.95) 100%   /* Deep blue-purple */
+    );
+    border: 2px solid rgba(249, 115, 22, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 40px rgba(249, 115, 22, 0.2),
+        0 0 60px rgba(147, 51, 234, 0.15),
+        inset 0 0 60px rgba(139, 69, 19, 0.05);
+    transition: all 0.5s ease;
+}
+
+.mystical-card:hover {
+    border-color: rgba(249, 115, 22, 0.5);
+    box-shadow: 
+        0 15px 60px rgba(249, 115, 22, 0.3),
+        0 0 80px rgba(147, 51, 234, 0.2),
+        inset 0 0 80px rgba(249, 115, 22, 0.08);
+    transform: translateY(-5px);
+}
+
+.card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, transparent 70%);
+    animation: glow-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Feature Cards - ABSOLUTELY NO HOVER ANIMATIONS */
+.feature-card-no-hover {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(139, 69, 19, 0.15) 0%,   /* Brown-orange */
+        rgba(147, 51, 234, 0.15) 100% /* Purple */
+    );
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: default;
+    /* CRITICAL: NO transitions, NO transforms, NO animations */
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.feature-card-no-hover:hover {
+    /* ONLY subtle color changes - NO MOVEMENT AT ALL */
+    background: linear-gradient(135deg, 
+        rgba(139, 69, 19, 0.2) 0%, 
+        rgba(147, 51, 234, 0.2) 100%
+    );
+    border-color: rgba(249, 115, 22, 0.3);
+    /* CRITICAL: NO transform, NO box-shadow animation, NO transitions */
+    transition: none !important;
+    transform: none !important;
+}
+
+.feature-card-no-hover .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    /* CRITICAL: NO transitions */
+    transition: none !important;
+    transform: none !important;
+}
+
+.feature-card-no-hover:hover .feature-icon {
+    /* CRITICAL: NO scale, NO rotate, NO transform */
+    transition: none !important;
+    transform: none !important;
+}
+
+/* OLD Feature Cards class - keeping for backwards compatibility */
+.feature-card {
+    position: relative;
+    background: linear-gradient(135deg, 
+        rgba(139, 69, 19, 0.15) 0%,
+        rgba(147, 51, 234, 0.15) 100%
+    );
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: default;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.feature-card:hover {
+    background: linear-gradient(135deg, 
+        rgba(139, 69, 19, 0.2) 0%, 
+        rgba(147, 51, 234, 0.2) 100%
+    );
+    border-color: rgba(249, 115, 22, 0.3);
+    transition: none !important;
+    transform: none !important;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    transition: none !important;
+    transform: none !important;
+}
+
+.feature-card:hover .feature-icon {
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(139, 69, 19, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316 0%, #9333ea 100%);
+    border-radius: 10px;
+    position: relative;
+    transition: width 1s ease;
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.5); }
+}
+
+/* Portal Button */
+.portal-button {
+    position: relative;
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #f97316 0%, #9333ea 100%);
+    border: 2px solid rgba(249, 115, 22, 0.5);
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Creepster', cursive;
+    letter-spacing: 1px;
+}
+
+.portal-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.portal-button:hover::before {
+    left: 100%;
+}
+
+.portal-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 40px rgba(249, 115, 22, 0.4);
+    border-color: rgba(249, 115, 22, 0.8);
+}
+
+/* Warning Banner */
+.warning-banner {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.2) 0%, rgba(139, 0, 0, 0.1) 100%);
+    border: 2px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    animation: warning-pulse 2s ease-in-out infinite;
+}
+
+@keyframes warning-pulse {
+    0%, 100% { border-color: rgba(239, 68, 68, 0.3); }
+    50% { border-color: rgba(239, 68, 68, 0.6); }
+}
+
+/* Achievement Badges */
+.achievement-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    border: 2px solid rgba(249, 115, 22, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.achievement-badge:hover {
+    transform: scale(1.1);
+    border-color: rgba(249, 115, 22, 0.6);
+    box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+}
+
+.achievement-badge.locked {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+.badge-icon {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.achievement-badge:hover .badge-icon {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.badge-label {
+    font-size: 0.75rem;
+    color: #c084fc;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Lantern Glow Effect */
+.lantern-glow {
+    position: relative;
+    background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.1) 0%, transparent 70%);
+}
+
+/* Flicker Animation */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+    75% { opacity: 0.9; }
+}
+
+.animate-flicker {
+    animation: flicker 3s ease-in-out infinite;
+}
+
+/* Form Inputs */
+.mystical-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(26, 13, 26, 0.6);
+    border: 2px solid rgba(249, 115, 22, 0.3);
+    border-radius: 10px;
+    color: #e8dcc0;
+    font-size: 1rem;
+    font-family: 'Crimson Text', serif;
+    transition: all 0.3s ease;
+}
+
+.mystical-input:focus {
+    outline: none;
+    border-color: rgba(249, 115, 22, 0.6);
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
+    background: rgba(26, 13, 26, 0.8);
+}
+
+.mystical-input::placeholder {
+    color: rgba(232, 220, 192, 0.4);
+}
+
+/* Logout Button */
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.3) 0%, rgba(139, 0, 0, 0.2) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 8px;
+    color: #fca5a5;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Creepster', cursive;
+}
+
+.logout-button:hover {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.5) 0%, rgba(139, 0, 0, 0.3) 100%);
+    border-color: rgba(239, 68, 68, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* Stat Cards - COMPLETELY NO HOVER ANIMATIONS */
+.stat-card-no-hover {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    border: 2px solid rgba(249, 115, 22, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.stat-card-no-hover:hover {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+    border-color: rgba(249, 115, 22, 0.3);
+    transition: none !important;
+    transform: none !important;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card-no-hover:hover .stat-icon {
+    /* NO animation */
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f97316;
+    font-family: 'Creepster', cursive;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #c084fc;
+    margin-top: 0.25rem;
+}
+
+/* OLD stat-card class - keeping for backwards compatibility */
+.stat-card {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    border: 2px solid rgba(249, 115, 22, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: none !important;
+    transform: none !important;
+}
+
+.stat-card:hover {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%);
+    border-color: rgba(249, 115, 22, 0.3);
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mystical-card {
+        border-radius: 15px;
+        padding: 1rem;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+    
+    .portal-button {
+        padding: 0.875rem 2rem;
+    }
+}

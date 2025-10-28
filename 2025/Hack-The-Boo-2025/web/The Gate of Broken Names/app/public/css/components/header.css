@@ -1,0 +1,101 @@
+.main-header {
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #D4AF37;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
+
+.header-title {
+  font-family: 'Creepster', cursive;
+  font-size: 2.5rem;
+  color: #FF6B35;
+  text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+  animation: flicker 3s linear infinite;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: #F8F8F8;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #D4AF37;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 80%;
+}
+
+.nav-link:hover {
+  color: #D4AF37;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.nav-link.active {
+  color: #D4AF37;
+  background: rgba(212, 175, 55, 0.2);
+}
+
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(107, 45, 92, 0.3);
+  border: 1px solid #6B2D5C;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.role-administrator {
+  background: #8B0000;
+  color: white;
+}
+
+.role-gatewalker {
+  background: #6B2D5C;
+  color: white;
+}
+
+.role-visitor,
+.role-guardian {
+  background: #2A2A2A;
+  color: #D4AF37;
+}

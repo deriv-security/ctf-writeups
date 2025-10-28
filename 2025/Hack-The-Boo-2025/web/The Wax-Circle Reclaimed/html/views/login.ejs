@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Access - Threshold Monitoring System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/halloween-theme.css">
+    <link rel="stylesheet" href="/css/atmospheric-effects.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body class="bg-black overflow-x-hidden">
+    <!-- Atmospheric Effects -->
+    <div id="fog-layer" class="fog-container"></div>
+    <div id="rain-layer" class="rain-container"></div>
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <div class="min-h-screen flex items-center justify-center p-4 relative z-10">
+        <div class="max-w-6xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-12 fade-in-up">
+                <div class="inline-block mb-6">
+                    <svg class="w-20 h-20 text-orange-500 mx-auto animate-flicker" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L9 6h6l-3-4zm0 20l3-4H9l3 4zm0-18v16M8 8h8v8H8V8z"/>
+                    </svg>
+                </div>
+                <h1 class="text-5xl font-bold text-orange-400 mb-4 spooky-title">
+                    THRESHOLD MONITORING SYSTEM
+                </h1>
+                <p class="text-purple-300 text-xl mb-2">Elin Croft Research Institute</p>
+                <p class="text-purple-400 text-sm italic">Black Fen Research Station - Secure Access Portal</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Login Card -->
+                <div class="mystical-card scale-in">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10 p-8">
+                        <div class="text-center mb-6">
+                            <div class="inline-block p-3 rounded-full bg-gradient-to-br from-orange-900 to-black border-2 border-orange-500 mb-3">
+                                <svg class="w-8 h-8 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-orange-400 mb-2">System Authentication</h2>
+                            <p class="text-purple-300 text-sm">Enter your credentials to access the monitoring system</p>
+                        </div>
+
+                        <form method="POST" action="/login" class="space-y-4">
+                            <div class="form-group">
+                                <label for="username" class="block text-orange-300 font-semibold mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                    Username
+                                </label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    required
+                                    class="mystical-input"
+                                    placeholder="Enter your username..."
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="block text-orange-300 font-semibold mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                    </svg>
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    class="mystical-input"
+                                    placeholder="Enter your password..."
+                                />
+                            </div>
+
+                            <% if (error) { %>
+                            <div class="warning-banner">
+                                <p class="text-red-300 text-sm text-center font-semibold"><%= error %></p>
+                            </div>
+                            <% } %>
+
+                            <button type="submit" class="portal-button w-full group">
+                                <span class="relative z-10 flex items-center justify-center gap-2">
+                                    <svg class="w-5 h-5 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                    <span class="font-bold">Access System</span>
+                                </span>
+                            </button>
+                        </form>
+
+                        <div class="mt-6 text-center">
+                            <p class="text-purple-400 text-xs italic">
+                                "Authorized personnel only - All access is logged and monitored"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="mystical-card scale-in stagger-2">
+                    <div class="card-glow"></div>
+                    <div class="relative z-10 p-8">
+                        <div class="text-center mb-6">
+                            <div class="inline-block p-3 rounded-full bg-gradient-to-br from-purple-900 to-black border-2 border-purple-500 mb-3">
+                                <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold text-purple-400 mb-2">System Information</h2>
+                            <p class="text-purple-300 text-sm">Research station monitoring capabilities</p>
+                        </div>
+
+                        <div class="space-y-4 text-sm text-purple-200">
+                            <div class="flex items-start gap-3 p-3 bg-black/30 rounded-lg border border-purple-900/50">
+                                <span class="text-2xl">📊</span>
+                                <div>
+                                    <p class="font-semibold text-orange-300 mb-1">Anomaly Analysis</p>
+                                    <p class="text-purple-400 text-xs">Real-time breach detection and analysis tools</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 bg-black/30 rounded-lg border border-purple-900/50">
+                                <span class="text-2xl">🔐</span>
+                                <div>
+                                    <p class="font-semibold text-orange-300 mb-1">Access Control</p>
+                                    <p class="text-purple-400 text-xs">Multi-tier authorization system with role-based permissions</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3 p-3 bg-black/30 rounded-lg border border-purple-900/50">
+                                <span class="text-2xl">📁</span>
+                                <div>
+                                    <p class="font-semibold text-orange-300 mb-1">Research Database</p>
+                                    <p class="text-purple-400 text-xs">Secure storage for field reports and classified data</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-gradient-to-br from-orange-900/20 to-purple-900/20 border border-orange-500/30 rounded-lg">
+                            <p class="text-orange-300 text-xs text-center italic">
+                                "Monitoring the boundaries of the unknown since 1889"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Guest Access Info -->
+            <div class="mystical-card scale-in stagger-5">
+                <div class="card-glow"></div>
+                <div class="relative z-10 p-6">
+                    <div class="text-center mb-4">
+                        <h3 class="text-xl font-bold text-purple-400 mb-2">Demo Access Available</h3>
+                        <p class="text-purple-300 text-sm">Limited access credentials for system evaluation</p>
+                    </div>
+
+                    <div class="max-w-sm mx-auto">
+                        <div class="p-6 bg-black/40 rounded-lg border border-purple-900/50 text-center">
+                            <p class="text-orange-300 font-semibold mb-3 text-lg">Guest Account</p>
+                            <div class="space-y-2">
+                                <p class="text-purple-400 text-sm">Username: <code class="text-orange-200 text-base">guest</code></p>
+                                <p class="text-purple-400 text-sm">Password: <code class="text-orange-200 text-base">guest123</code></p>
+                            </div>
+                            <p class="text-purple-500 text-xs mt-4 italic">
+                                "Basic access tier - Monitoring capabilities only"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-8">
+                <p class="text-purple-400 text-sm">
+                    Elin Croft Research Institute • Black Fen Monitoring Station • Est. 1889
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/atmospheric-effects.js"></script>
+    <script src="/js/particle-system.js"></script>
+    <script src="/js/animations.js"></script>
+</body>
+</html>

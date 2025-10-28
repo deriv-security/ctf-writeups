@@ -1,0 +1,192 @@
+.card {
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #2A2A2A;
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.gate-card {
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #2A2A2A;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.gate-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #FF6B35, #6B2D5C);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gate-card:hover::before {
+  opacity: 1;
+}
+
+.gate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+  border-color: #D4AF37;
+}
+
+.gate-sigil {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.gate-card.sealed {
+  border-left: 4px solid #8B0000;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(26, 26, 26, 0.9) 100%);
+}
+
+.gate-card.open {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(26, 26, 26, 0.9) 100%);
+}
+
+.note-card {
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #2A2A2A;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #FF6B35, #6B2D5C);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.note-card:hover::before {
+  opacity: 1;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+  border-color: #D4AF37;
+}
+
+.note-card.private {
+  border-left: 4px solid #8B0000;
+  background: linear-gradient(135deg, rgba(139, 0, 0, 0.1) 0%, rgba(26, 26, 26, 0.9) 100%);
+}
+
+.note-card.public {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(26, 26, 26, 0.9) 100%);
+}
+
+.note-title {
+  color: #D4AF37;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.note-meta {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.note-content {
+  color: #F8F8F8;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.profile-card {
+  background: rgba(26, 26, 26, 0.9);
+  border: 1px solid #2A2A2A;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #FF6B35, #6B2D5C);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-card:hover::before {
+  opacity: 1;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+  border-color: #D4AF37;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D4AF37, #FF6B35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Utility classes */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

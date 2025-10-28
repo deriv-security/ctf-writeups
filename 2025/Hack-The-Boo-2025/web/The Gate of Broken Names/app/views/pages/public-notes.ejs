@@ -1,0 +1,114 @@
+<main class="max-w-7xl mx-auto p-6 fade-in">
+  <div class="card">
+    <h2 class="text-3xl font-gothic text-mystic-gold mb-6 glow-text">📖 Public Chronicles</h2>
+    <p class="text-gray-300 mb-6">Browse all public chronicles shared by the community.</p>
+
+    <div id="notes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <p class="text-gray-400 text-center py-8 col-span-full">Loading chronicles...</p>
+    </div>
+    
+    <!-- Pagination -->
+    <div id="pagination-container" class="mt-8 flex justify-center items-center gap-2" style="display: none;">
+      <button id="prev-btn" class="btn-secondary px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        ← Previous
+      </button>
+      <div id="page-info" class="text-gray-300 mx-4">
+        Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+      </div>
+      <button id="next-btn" class="btn-secondary px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed">
+        Next →
+      </button>
+    </div>
+  </div>
+</main>
+
+<script>
+let currentPage = <%= currentPage %>;
+let totalPages = 1;
+
+async function loadPublicNotes(page = currentPage) {
+  try {
+    const response = await fetch(`/api/notes?page=${page}&limit=16`, {
+      credentials: 'include'
+    });
+    const data = await response.json();
+    
+    const container = document.getElementById('notes-container');
+    if (data.notes && data.notes.length > 0) {
+      container.innerHTML = data.notes.map(note => `
+        <div class="note-card public">
+          <h3 class="text-lg font-gothic text-mystic-gold mb-2">${escapeHtml(note.title)}</h3>
+          <p class="text-sm text-gray-400 mb-2">By ${escapeHtml(note.username)}</p>
+          <p class="text-gray-300 text-sm mb-3">${escapeHtml(note.content.substring(0, 100))}...</p>
+          <a href="/note?id=${note.id}" class="text-xs text-mystic-gold hover:underline">Read More →</a>
+        </div>
+      `).join('');
+      
+      // Update pagination
+      if (data.pagination) {
+        currentPage = data.pagination.page;
+        totalPages = data.pagination.totalPages;
+        updatePagination();
+      }
+    } else {
+      container.innerHTML = '<p class="text-gray-400 text-center py-8 col-span-full">No public chronicles found.</p>';
+    }
+  } catch (error) {
+    console.error('Error loading notes:', error);
+    document.getElementById('notes-container').innerHTML = '<p class="text-red-500 text-center py-8 col-span-full">Failed to load chronicles.</p>';
+  }
+}
+
+function updatePagination() {
+  const paginationContainer = document.getElementById('pagination-container');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const currentPageSpan = document.getElementById('current-page');
+  const totalPagesSpan = document.getElementById('total-pages');
+  
+  // Show pagination if there's more than one page
+  if (totalPages > 1) {
+    paginationContainer.style.display = 'flex';
+  } else {
+    paginationContainer.style.display = 'none';
+    return;
+  }
+  
+  // Update page numbers
+  currentPageSpan.textContent = currentPage;
+  totalPagesSpan.textContent = totalPages;
+  
+  // Update button states
+  prevBtn.disabled = currentPage <= 1;
+  nextBtn.disabled = currentPage >= totalPages;
+  
+  // Update URL without reload
+  const url = new URL(window.location);
+  url.searchParams.set('page', currentPage);
+  window.history.pushState({}, '', url);
+}
+
+function goToPage(page) {
+  if (page < 1 || page > totalPages) return;
+  loadPublicNotes(page);
+}
+
+// Set up pagination button handlers
+document.getElementById('prev-btn').addEventListener('click', () => {
+  goToPage(currentPage - 1);
+});
+
+document.getElementById('next-btn').addEventListener('click', () => {
+  goToPage(currentPage + 1);
+});
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Load initial page
+loadPublicNotes();
+</script>
+

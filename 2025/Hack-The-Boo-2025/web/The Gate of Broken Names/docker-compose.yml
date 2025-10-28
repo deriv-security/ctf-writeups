@@ -1,0 +1,10 @@
+services:
+  gate-of-broken-names:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1337:3001"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped

@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+    --void-black: #0d0d0d;
+    --charcoal-deep: #1a1a1a;
+    --mist-gray: #2c2c2c;
+    --fog-gray: #404040;
+    --old-wax: #e8dcc0;
+    --tallow-cream: #f4f1e8;
+    --candle-amber: #d4b896;
+    --ghost-white: #f8f8f8;
+    --mirror-silver: #c0c0c0;
+    --spectral-blue: #6b8caf;
+    --ethereal-pale: #a8b8c8;
+    --chalk-white: #fafafa;
+    --corrupted-red: #8b4a4a;
+    --breach-crimson: #a05050;
+    --warning-rust: #b8860b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(135deg, var(--charcoal-deep) 0%, var(--void-black) 100%);
+    color: var(--tallow-cream);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-bottom: 1px solid var(--old-wax);
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 10px;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--old-wax);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--spectral-blue);
+    font-style: italic;
+}
+
+.mystical-border {
+    border: 1px solid var(--mirror-silver);
+    border-radius: 10px;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 25px;
+    margin: 25px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    color: var(--tallow-cream);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--old-wax);
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--old-wax) 0%, var(--tallow-cream) 100%);
+    color: var(--charcoal-deep);
+    border: 1px solid var(--candle-amber);
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(232, 220, 192, 0.3);
+    background: linear-gradient(135deg, var(--tallow-cream) 0%, var(--chalk-white) 100%);
+}
+
+.ritual-form {
+    background: rgba(26, 26, 26, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--mirror-silver);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--old-wax);
+    font-family: 'Cinzel', serif;
+    font-weight: 500;
+}
+
+input[type="text"], input[type="password"], input[type="url"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--fog-gray);
+    border-radius: 5px;
+    background: rgba(44, 44, 44, 0.8);
+    color: var(--tallow-cream);
+    font-size: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="url"]:focus {
+    outline: none;
+    border-color: var(--old-wax);
+    box-shadow: 0 0 8px rgba(232, 220, 192, 0.2);
+}
+
+.error {
+    background: rgba(139, 74, 74, 0.2);
+    border: 1px solid var(--corrupted-red);
+    color: var(--tallow-cream);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.success {
+    background: rgba(107, 140, 175, 0.2);
+    border: 1px solid var(--spectral-blue);
+    color: var(--tallow-cream);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid var(--old-wax);
+    background: rgba(26, 26, 26, 0.8);
+    border-radius: 10px;
+    color: var(--spectral-blue);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .container { padding: 15px; }
+    h1 { font-size: 2rem; }
+    .mystical-border { padding: 20px; margin: 20px 0; }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--charcoal-deep); }
+::-webkit-scrollbar-thumb { background: var(--old-wax); border-radius: 4px; }
