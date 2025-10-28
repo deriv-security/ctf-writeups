@@ -1,0 +1,22 @@
+{
+  "name": "wax-circle-reclaimed",
+  "version": "1.0.0",
+  "description": "Threshold Monitoring System - Elin Croft's Breach Detection Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nano": "^10.1.2",
+    "axios": "^1.5.0",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.9",
+    "express-ejs-layouts": "^2.5.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "keywords": ["hacktheboo", "web", "security", "challenge"],
+  "author": "HTB",
+  "license": "MIT"
+}

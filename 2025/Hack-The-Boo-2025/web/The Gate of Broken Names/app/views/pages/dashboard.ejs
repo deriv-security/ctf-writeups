@@ -1,0 +1,181 @@
+
+<main class="max-w-7xl mx-auto p-6 fade-in">
+  <!-- Welcome Banner -->
+  <div class="card mb-6 bg-gradient-to-r from-halloween-purple to-halloween-black border-2 border-mystic-gold">
+    <div class="flex items-center gap-4">
+      <div class="text-6xl">🎃</div>
+      <div class="flex-1">
+        <h2 class="text-3xl font-gothic text-mystic-gold glow-text mb-2">
+          Welcome back, <%= user.username %>
+        </h2>
+        <p class="text-gray-300">
+          Your personal dashboard - manage your chronicles and explore the platform
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Quick Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a href="/notes" class="card bg-gradient-to-br from-halloween-gray to-halloween-black border-l-4 border-mystic-gold">
+          <div class="text-center">
+            <div class="text-5xl mb-3">📝</div>
+            <h3 class="text-xl font-gothic text-mystic-gold mb-2">My Chronicles</h3>
+            <p class="text-sm text-gray-400">Create and manage chronicles</p>
+          </div>
+        </a>
+
+        <a href="/public-notes" class="card bg-gradient-to-br from-halloween-gray to-halloween-black border-l-4 border-halloween-orange">
+          <div class="text-center">
+            <div class="text-5xl mb-3">📖</div>
+            <h3 class="text-xl font-gothic text-halloween-orange mb-2">Public Chronicles</h3>
+            <p class="text-sm text-gray-400">Browse public chronicles</p>
+          </div>
+        </a>
+
+        <a href="/profile" class="card bg-gradient-to-br from-halloween-gray to-halloween-black border-l-4 border-halloween-purple">
+          <div class="text-center">
+            <div class="text-5xl mb-3">👤</div>
+            <h3 class="text-xl font-gothic text-halloween-purple mb-2">Your Profile</h3>
+            <p class="text-sm text-gray-400">View your profile</p>
+          </div>
+        </a>
+      </div>
+      <div class="card">
+        <h3 class="text-xl font-gothic text-mystic-gold mb-4 flex items-center gap-2">
+          <span class="text-2xl">📖</span>
+          <span>Recent Chronicles</span>
+        </h3>
+        <div id="recent-chronicles-container">
+          <p class="text-gray-400 text-sm text-center py-6">Loading chronicles...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+      <!-- Profile Card -->
+      <div class="card bg-gradient-to-br from-halloween-purple to-halloween-black border-2 border-mystic-gold">
+        <div class="text-center mb-4">
+          <div class="text-5xl mb-3 animate-pulse-slow">
+            <%
+            function getAvatarEmoji(userId) {
+              const emojis = ['🧙‍♂️', '🧙‍♀️', '👻', '🔮', '🦇', '🎃', '🌙', '⚡'];
+              return emojis[userId % emojis.length];
+            }
+            function getRoleDisplay(role) {
+              const roleMap = {
+                'administrator': 'Gate Master',
+                'gatewalker': 'Realm Walker',
+                'visitor': 'Wanderer',
+                'guardian': 'Seal Guardian'
+              };
+              return roleMap[role] || role;
+            }
+            %>
+            <%= getAvatarEmoji(user.id) %>
+          </div>
+          <h3 class="text-2xl font-gothic text-mystic-gold mb-2"><%= user.username %></h3>
+          <span class="role-badge role-<%= user.role %> text-sm"><%= getRoleDisplay(user.role) %></span>
+        </div>
+
+        <div class="space-y-2 text-sm bg-halloween-black p-4 rounded-lg">
+          <div class="flex justify-between items-center py-2 border-b border-fog-gray">
+            <span class="text-gray-400">👤 Username:</span>
+            <span class="text-mystic-gold font-semibold"><%= user.username %></span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-fog-gray">
+            <span class="text-gray-400">📝 Role:</span>
+            <span class="text-mystic-gold font-semibold"><%= getRoleDisplay(user.role) %></span>
+          </div>
+          <div class="flex justify-between items-center py-2 border-b border-fog-gray">
+            <span class="text-gray-400">📧 Email:</span>
+            <span class="text-mystic-gold font-semibold text-xs"><%= user.email %></span>
+          </div>
+          <div class="flex justify-between items-center py-2">
+            <span class="text-gray-400">🆔 User ID:</span>
+            <span class="text-mystic-gold font-semibold">#<%= user.id %></span>
+          </div>
+        </div>
+
+        <a href="/profile" class="btn btn-ghost w-full mt-4 group">
+          <span>View Full Profile</span>
+          <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+async function loadRecentChronicles() {
+  try {
+    const response = await fetch('/api/notes/my-notes', {
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      if (response.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
+      throw new Error('Failed to fetch');
+    }
+    
+    const notes = await response.json();
+    const container = document.getElementById('recent-chronicles-container');
+    
+    // Sort by created_at and take first 5
+    const recentNotes = notes.sort((a, b) => 
+      new Date(b.created_at) - new Date(a.created_at)
+    ).slice(0, 5);
+    
+    if (recentNotes.length > 0) {
+      container.innerHTML = `
+        <div class="space-y-3">
+          ${recentNotes.map(note => `
+            <a href="/note?id=${note.id}" class="block bg-halloween-black p-3 rounded-lg border border-fog-gray hover:border-mystic-gold transition-colors group">
+              <div class="flex items-start gap-2 mb-2">
+                <span class="text-lg">📜</span>
+                <h4 class="text-sm font-semibold text-halloween-orange group-hover:text-mystic-gold transition-colors flex-1">${escapeHtml(note.title)}</h4>
+              </div>
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs px-2 py-1 rounded ${note.is_private ? 'bg-blood-red' : 'bg-green-600'} text-white">
+                  ${note.is_private ? '🔒 Private' : '🌐 Public'}
+                </span>
+              </div>
+              <p class="text-xs text-gray-300 line-clamp-2">${escapeHtml(note.content.substring(0, 80))}...</p>
+            </a>
+          `).join('')}
+        </div>
+        <a href="/notes" class="btn btn-secondary w-full mt-4 group">
+          <span>View All My Chronicles</span>
+          <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      `;
+    } else {
+      container.innerHTML = `
+        <p class="text-gray-400 text-sm text-center py-6">No chronicles yet...</p>
+        <a href="/notes" class="btn btn-primary w-full mt-2">
+          <span>Create Your First Chronicle</span>
+        </a>
+      `;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    document.getElementById('recent-chronicles-container').innerHTML =
+      '<p class="text-gray-400 text-sm text-center py-6">Failed to load chronicles</p>';
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+loadRecentChronicles();
+</script>

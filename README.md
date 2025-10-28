@@ -35,6 +35,11 @@ The ultimate challenge in cybersecurity featuring next-gen cryptography, post-qu
 
 Dubai Police Cybersecurity CTF competition featuring challenges in web exploitation, binary exploitation, cryptography, and reverse engineering.
 
+### Hack The Boo 2025
+**Website**: https://ctf.hackthebox.com/event/details/hack-the-boo-2025-competition-2842 | **Dates**: October 24-27, 2025 | **Platform**: HackTheBox
+
+Annual Halloween-themed CTF competition featuring challenges across cryptography, binary exploitation, reverse engineering, forensics, web security, and coding challenges.
+
 ## What You'll Find Here
 
 Each writeup in this repository includes:

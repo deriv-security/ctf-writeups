@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hollow King's Threshold</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/halloween-theme.css">
+    <link rel="stylesheet" href="/css/atmospheric-effects.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body class="bg-black overflow-x-hidden">
+    <!-- Atmospheric Effects -->
+    <div id="fog-layer" class="fog-container"></div>
+    <div id="rain-layer" class="rain-container"></div>
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="min-h-screen relative z-10">
+        <!-- Header with Lantern Effect -->
+        <header class="lantern-glow py-8 px-4">
+            <div class="max-w-6xl mx-auto text-center">
+                <div class="lantern-icon mb-4">
+                    <svg class="w-16 h-16 mx-auto text-amber-500 animate-flicker" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L9 6h6l-3-4zm0 20l3-4H9l3 4zm0-18v16M8 8h8v8H8V8z"/>
+                    </svg>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-purple-600 to-orange-500 mb-2 tracking-wider">
+                    THRESHOLD MONITORING SYSTEM
+                </h1>
+                <p class="text-purple-300 text-xl italic">Elin Croft Research Institute - Breach Detection & Analysis</p>
+            </div>
+        </header>
+
+        <!-- Main Portal Section -->
+        <main class="max-w-7xl mx-auto px-4 py-12">
+            <!-- Mystical Gateway Card -->
+            <div class="mystical-card mb-12 transform hover:scale-105 transition-all duration-500">
+                <div class="card-glow"></div>
+                <div class="relative z-10 p-8">
+                    <div class="text-center mb-8">
+                        <div class="inline-block p-4 rounded-full bg-gradient-to-br from-purple-900 to-black border-2 border-orange-500 mb-4">
+                            <svg class="w-12 h-12 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-4xl font-bold text-orange-400 mb-4">Secure Monitoring Portal</h2>
+                        <p class="text-purple-200 text-lg leading-relaxed max-w-3xl mx-auto">
+                            Real-time detection and analysis of anomalous activity across the Black Fen research zone.
+                            Access secure monitoring systems, review incident reports, and coordinate response protocols
+                            for threshold breach events and environmental disturbances.
+                        </p>
+                    </div>
+
+                    <!-- Feature Grid -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="feature-card group">
+                            <div class="feature-icon">📡</div>
+                            <h3 class="text-xl font-bold text-orange-300 mb-2">Sensor Network Status</h3>
+                            <p class="text-purple-200 text-sm">Real-time monitoring of field sensors across the research perimeter. Track environmental anomalies and threshold disturbances.</p>
+                            <div class="progress-bar mt-3">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="text-xs text-purple-300 mt-2">85% Operational</div>
+                        </div>
+
+                        <div class="feature-card group">
+                            <div class="feature-icon">🔐</div>
+                            <h3 class="text-xl font-bold text-orange-300 mb-2">Multi-Factor Authentication</h3>
+                            <p class="text-purple-200 text-sm">Secure access control with tiered authorization levels. Role-based permissions protect classified research data.</p>
+                            <div class="progress-bar mt-3">
+                                <div class="progress-fill" style="width: 92%"></div>
+                            </div>
+                            <div class="text-xs text-purple-300 mt-2">Security Level: High</div>
+                        </div>
+
+                        <div class="feature-card group">
+                            <div class="feature-icon">📊</div>
+                            <h3 class="text-xl font-bold text-orange-300 mb-2">Anomaly Detection</h3>
+                            <p class="text-purple-200 text-sm">Advanced analysis of boundary disturbances and environmental irregularities. Pattern recognition for breach prediction.</p>
+                            <div class="progress-bar mt-3">
+                                <div class="progress-fill" style="width: 78%"></div>
+                            </div>
+                            <div class="text-xs text-purple-300 mt-2">12 Active Alerts</div>
+                        </div>
+
+                        <div class="feature-card group">
+                            <div class="feature-icon">📁</div>
+                            <h3 class="text-xl font-bold text-orange-300 mb-2">Research Database</h3>
+                            <p class="text-purple-200 text-sm">Centralized archive of field reports, incident logs, and historical data. Requires proper clearance for access.</p>
+                            <div class="progress-bar mt-3">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                            <div class="text-xs text-purple-300 mt-2">2,847 Documents</div>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="text-center">
+                        <a href="/login" class="portal-button group">
+                            <span class="relative z-10 flex items-center justify-center gap-3">
+                                <svg class="w-6 h-6 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                                </svg>
+                                <span class="text-xl font-bold">Access Control Panel</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-purple-900 mt-16 py-8">
+            <div class="max-w-6xl mx-auto px-4 text-center">
+                <p class="text-purple-400 text-sm">
+                    Elin Croft Research Institute • Black Fen Monitoring Station • Est. 1889
+                </p>
+                <p class="text-purple-500 text-xs mt-2">
+                    "Observing the threshold between the known and the unknown"
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/js/atmospheric-effects.js"></script>
+    <script src="/js/particle-system.js"></script>
+    <script src="/js/animations.js"></script>
+</body>
+</html>

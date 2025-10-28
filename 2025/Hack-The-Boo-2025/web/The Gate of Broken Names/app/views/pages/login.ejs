@@ -1,0 +1,76 @@
+<div class="min-h-screen flex items-center justify-center p-4 relative z-10">
+  <div class="w-full max-w-2xl">
+    <div class="card bg-gradient-to-br from-halloween-gray to-halloween-black border-2 border-mystic-gold mystic-border fade-in">
+      <div class="text-center mb-8">
+        <div class="text-5xl mb-4 animate-swing">🚪</div>
+        <h2 class="text-3xl font-gothic text-mystic-gold glow-text mb-2">
+          Welcome Back
+        </h2>
+        <p class="text-gray-400">Sign in to your account</p>
+      </div>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-error">
+          <span>⚠️</span>
+          <span><%= error %></span>
+        </div>
+      <% } %>
+
+      <form action="/api/auth/login" method="POST" class="space-y-5">
+        <div class="form-group">
+          <label class="form-label">
+            <span class="text-2xl mr-2">👤</span>
+            <span>Username</span>
+          </label>
+          <input
+            type="text"
+            name="username"
+            class="form-input"
+            placeholder="Enter your username..."
+            required
+            autocomplete="username"
+          >
+          <p class="text-xs text-gray-500 mt-1 ml-1">Your account username</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span class="text-2xl mr-2">🔒</span>
+            <span>Password</span>
+          </label>
+          <input
+            type="password"
+            name="password"
+            class="form-input"
+            placeholder="Enter your password..."
+            required
+            autocomplete="current-password"
+          >
+          <p class="text-xs text-gray-500 mt-1 ml-1">Your account password</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full group">
+          <span class="text-xl mr-2">🚪</span>
+          <span>Sign In</span>
+          <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+        </button>
+      </form>
+
+      <div class="mt-6 pt-6 border-t border-fog-gray">
+        <p class="text-center text-gray-400 mb-4">Don't have an account?</p>
+        <a href="/register" class="btn btn-ghost w-full group">
+          <span class="text-xl mr-2">✨</span>
+          <span>Create Account</span>
+          <span class="ml-2 group-hover:scale-110 transition-transform inline-block">→</span>
+        </a>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/" class="text-sm text-gray-500 hover:text-mystic-gold transition-colors">
+          ← Back to home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+

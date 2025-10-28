@@ -1,0 +1,217 @@
+<main class="max-w-6xl mx-auto p-6 fade-in">
+  <!-- Header Card -->
+  <div class="card mb-6 bg-gradient-to-r from-halloween-purple to-halloween-black border-2 border-mystic-gold">
+    <div class="flex items-center gap-4 mb-4">
+      <div class="text-5xl">📜</div>
+      <div>
+        <h2 class="text-3xl font-gothic text-mystic-gold glow-text">My Chronicles</h2>
+        <p class="text-gray-300">Create and manage your personal chronicles</p>
+      </div>
+    </div>
+
+    <div class="flex gap-4 flex-wrap" id="notes-stats">
+      <span class="bg-halloween-black px-4 py-2 rounded-lg border border-fog-gray text-sm">
+        <span class="text-mystic-gold">📝</span> <span id="total-count">0</span> Total Chronicles
+      </span>
+      <span class="bg-halloween-black px-4 py-2 rounded-lg border border-fog-gray text-sm">
+        <span class="text-mystic-gold">🔒</span> <span id="private-count">0</span> Private
+      </span>
+      <span class="bg-halloween-black px-4 py-2 rounded-lg border border-fog-gray text-sm">
+        <span class="text-mystic-gold">📖</span> <span id="public-count">0</span> Public
+      </span>
+    </div>
+  </div>
+
+  <div id="alert-container"></div>
+  
+  <!-- Create Chronicle Form -->
+  <div class="card mb-6 bg-gradient-to-br from-halloween-gray to-halloween-black">
+    <h3 class="text-2xl font-gothic text-halloween-orange mb-4 flex items-center gap-3">
+      <span class="text-3xl">✍️</span>
+      <span>Create New Chronicle</span>
+    </h3>
+
+    <div class="bg-fog-gray p-4 rounded-lg border-l-4 border-mystic-gold mb-4">
+      <div class="flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <div class="text-sm text-gray-300">
+          <p class="font-semibold text-mystic-gold mb-1">Chronicle Guidelines</p>
+          <p>Write your thoughts, ideas, and reminders. Mark sensitive information as private
+          to keep it hidden from other users.</p>
+        </div>
+      </div>
+    </div>
+
+    <form id="create-note-form" class="space-y-4">
+      <div class="form-group">
+        <label class="form-label">
+          <span class="text-xl mr-2">📋</span>
+          <span>Chronicle Title</span>
+        </label>
+        <input
+          type="text"
+          name="title"
+          class="form-input"
+          placeholder="Enter chronicle title..."
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <span class="text-xl mr-2">📝</span>
+          <span>Chronicle Content</span>
+        </label>
+        <textarea
+          name="content"
+          class="form-textarea"
+          rows="6"
+          placeholder="Write your chronicle content here..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="bg-halloween-black p-4 rounded-lg border border-fog-gray">
+        <div class="form-checkbox">
+          <input type="checkbox" name="is_private" id="is_private">
+          <label for="is_private" class="text-gray-300 cursor-pointer">
+            <span class="text-xl mr-2">🔒</span>
+            <span>Mark as Private Chronicle</span>
+            <p class="text-xs text-gray-500 mt-1 ml-8">
+              Private chronicles are not listed in public view
+            </p>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary group">
+        <span class="text-xl">✨</span>
+        <span class="ml-2">Create Chronicle</span>
+        <span class="ml-2 group-hover:scale-110 transition-transform">→</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Existing Chronicles -->
+  <div class="card">
+    <h3 class="text-2xl font-gothic text-mystic-gold mb-6 flex items-center gap-3">
+      <span class="text-3xl">📚</span>
+      <span>Your Chronicles</span>
+    </h3>
+
+    <div id="notes-container" class="space-y-4">
+      <p class="text-gray-400 text-center py-8">Loading your chronicles...</p>
+    </div>
+  </div>
+</main>
+
+<script>
+async function loadNotes() {
+  try {
+    const response = await fetch('/api/notes/my-notes', {
+      credentials: 'include'
+    });
+    
+    if (!response.ok) {
+      if (response.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
+      throw new Error('Failed to fetch notes');
+    }
+    
+    const notes = await response.json();
+    
+    // Update stats
+    document.getElementById('total-count').textContent = notes.length;
+    document.getElementById('private-count').textContent = notes.filter(n => n.is_private).length;
+    document.getElementById('public-count').textContent = notes.filter(n => !n.is_private).length;
+    
+    // Display notes
+    const container = document.getElementById('notes-container');
+    if (notes && notes.length > 0) {
+      container.innerHTML = notes.map(note => `
+        <div class="note-card ${note.is_private ? 'private' : 'public'}">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="text-xl font-gothic text-mystic-gold">${escapeHtml(note.title)}</h3>
+            <span class="text-xs px-2 py-1 rounded ${note.is_private ? 'bg-blood-red' : 'bg-green-600'} text-white">
+              ${note.is_private ? '🔒 Private' : '🌐 Public'}
+            </span>
+          </div>
+          <p class="text-gray-300 mb-3">${escapeHtml(note.content.substring(0, 200))}${note.content.length > 200 ? '...' : ''}</p>
+          <div class="flex gap-3 items-center text-xs text-gray-400">
+            <span>📅 ${new Date(note.created_at).toLocaleDateString()}</span>
+            <a href="/note?id=${note.id}" class="text-mystic-gold hover:underline">View Details →</a>
+          </div>
+        </div>
+      `).join('');
+    } else {
+      container.innerHTML = '<p class="text-gray-400 text-center py-8">No chronicles yet. Use the form above to create your first chronicle!</p>';
+    }
+  } catch (error) {
+    console.error('Error loading notes:', error);
+    document.getElementById('notes-container').innerHTML =
+      '<p class="text-red-500 text-center py-8">Failed to load chronicles: ' + error.message + '</p>';
+  }
+}
+
+// Handle form submission
+document.getElementById('create-note-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = {
+    user_id: <%= user.id %>,
+    title: formData.get('title'),
+    content: formData.get('content'),
+    is_private: formData.get('is_private') === 'on'
+  };
+
+  try {
+    const response = await fetch('/api/notes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) throw new Error('Failed to create chronicle');
+
+    // Show success message
+    document.getElementById('alert-container').innerHTML = `
+      <div class="alert alert-success mb-6">
+        <span>✨</span>
+        <span>Chronicle created successfully!</span>
+      </div>
+    `;
+
+    // Reset form
+    e.target.reset();
+
+    // Reload notes
+    await loadNotes();
+
+    // Clear success message after 3 seconds
+    setTimeout(() => {
+      document.getElementById('alert-container').innerHTML = '';
+    }, 3000);
+  } catch (error) {
+    console.error('Error creating note:', error);
+    document.getElementById('alert-container').innerHTML = `
+      <div class="alert alert-error mb-6">
+        <span>⚠️</span>
+        <span>Failed to create chronicle: ${error.message}</span>
+      </div>
+    `;
+  }
+});
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Initial load
+loadNotes();
+</script>

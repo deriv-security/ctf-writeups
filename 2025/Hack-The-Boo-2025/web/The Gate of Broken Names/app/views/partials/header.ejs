@@ -1,0 +1,60 @@
+<%
+function getAvatarEmoji(userId) {
+  const emojis = ['🧙‍♂️', '🧙‍♀️', '👻', '🔮', '🦇', '🎃', '🌙', '⚡'];
+  return emojis[userId % emojis.length];
+}
+
+function getRoleDisplay(role) {
+  const roleMap = {
+    'administrator': 'Gate Master',
+    'gatewalker': 'Realm Walker',
+    'visitor': 'Wanderer',
+    'guardian': 'Seal Guardian'
+  };
+  return roleMap[role] || role;
+}
+%>
+
+<header class="main-header">
+  <div class="header-content">
+    <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+      <div class="flex items-center gap-4">
+        <div class="text-4xl animate-pulse-slow">🎃</div>
+        <div>
+          <h1 class="header-title glow-text">Gate of Broken Names</h1>
+          <p class="text-xs text-gray-400 italic">Where identities are reversed and paths are twisted</p>
+        </div>
+      </div>
+      <div class="user-badge">
+        <span class="text-xl"><%= getAvatarEmoji(user.id) %></span>
+        <span><%= user.username %></span>
+        <span class="role-badge role-<%= user.role %>"><%= getRoleDisplay(user.role) %></span>
+      </div>
+    </div>
+    <nav class="nav-menu">
+      <a href="/dashboard" class="nav-link <%= activePage === 'dashboard' ? 'active' : '' %>">
+        <span class="text-xl">🏰</span>
+        <span>Realm</span>
+      </a>
+      <a href="/profile" class="nav-link <%= activePage === 'profile' ? 'active' : '' %>">
+        <span class="text-xl">👤</span>
+        <span>Identity</span>
+      </a>
+      <a href="/notes" class="nav-link <%= activePage === 'notes' ? 'active' : '' %>">
+        <span class="text-xl">📝</span>
+        <span>My Chronicles</span>
+      </a>
+      <a href="/public-notes" class="nav-link <%= activePage === 'public-notes' ? 'active' : '' %>">
+        <span class="text-xl">📖</span>
+        <span>All Chronicles</span>
+      </a>
+      <form action="/api/auth/logout" method="POST" style="display: inline;">
+        <button type="submit" class="nav-link" style="background: rgba(139, 0, 0, 0.2); border: 1px solid #8B0000;">
+          <span class="text-xl">🚪</span>
+          <span>Exit Realm</span>
+        </button>
+      </form>
+    </nav>
+  </div>
+</header>
+
