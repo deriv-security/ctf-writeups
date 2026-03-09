@@ -14,14 +14,21 @@ We believe in knowledge sharing and contributing to the security community. This
 
 ```
 ctf-writeups/
+├── 2026/
+│   └── Mobile-Hacking-Conference-CTF/   # Mobile Hacking Conference CTF 2026
 ├── 2025/
-│   ├── CyberQ-CTF/              # CyberQ Hackathon 2025
-│   ├── Dubai-Police-CTF/        # Dubai Police CTF 2025
-│   └── [Other CTFs]
-├── 2024/
-│   └── [CTF competitions from 2024]
+│   ├── CyberQ-CTF/                      # CyberQ Hackathon 2025
+│   ├── Dubai-Police-CTF/                # Dubai Police CTF 2025
+│   └── Hack-The-Boo-2025/               # Hack The Boo 2025
 └── ...
 ```
+
+## 2026 Competitions
+
+### Mobile Hacking Conference CTF 2026
+**Website**: https://mhl.ctfd.io/ | **Dates**: March 3–4, 2026 | **Organizer**: Mobile Hacking Lab | **Format**: Live CTF during the Mobile Hacking Conference
+
+A live mobile security CTF with challenges focused on Android application security. Participants used Hacking Labs with integrated Android and iOS devices to interact with challenges.
 
 ## 2025 Competitions
 
